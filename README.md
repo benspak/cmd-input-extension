@@ -11,7 +11,7 @@ Users prepend a command with the prefix ;cmd (e.g., ;email) to trigger automated
 
 Keyboard Shortcut:
 
-After typing a valid command followed by Ctrl + Enter, the saved text associated with the command will be pasted into the active input field, replacing the command itself.
+After typing a valid command followed by Alt + Enter, the saved text associated with the command will be pasted into the active input field, replacing the command itself.
 Text Association and Management:
 
 Allow users to save predefined text for each ;cmd command via a settings page or context menu within the plugin.

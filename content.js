@@ -1,6 +1,6 @@
 // Listen for `Ctrl + Enter` or `Cmd + Enter` in input fields
 document.addEventListener("keydown", async (event) => {
-  if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+  if ((event.altKey) && event.key === "Space") {
     const activeElement = document.activeElement;
 
     // Ensure the active element is an input or textarea
