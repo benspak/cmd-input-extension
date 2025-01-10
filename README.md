@@ -19,7 +19,7 @@ Allow users to save predefined text for each ;cmd command via a settings page or
 Support CRUD operations (Create, Read, Update, Delete) for saved commands and their associated texts.
 Overwriting Behavior:
 
-Upon command execution (Ctrl + Enter press), replace the command entered in the field with the associated text.
+Upon command execution (Alt + Enter press), replace the command entered in the field with the associated text.
 Additional Considerations:
 
 Provide error handling if an undefined command is used.
@@ -29,7 +29,7 @@ Follow best practices for Chrome extension development, keeping the extension li
 User Interaction Flow:
 
 User enters ;cmd;example into a text field.
-Upon pressing Ctrl + Enter:
+Upon pressing Alt + Enter:
 If example is a saved command, replace the ;cmd;example text with its associated predefined value.
 If example is undefined, show an error or fallback notification.
 Extensions (Optional Features):

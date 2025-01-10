@@ -1,13 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "Command Text Automation",
+  "name": "Text Command Automator",
   "version": "1.0",
-  "description": "Automate text input using commands with Ctrl+Enter or Cmd+Enter.",
-  "permissions": ["storage"],
+  "description": "Automate text input with customizable commands and keyboard shortcuts.",
+  "permissions": ["storage", "activeTab"],
   "host_permissions": ["<all_urls>"],
-  "background": {
-    "service_worker": "background.js"
-  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -15,6 +12,9 @@
       "48": "icon.png",
       "128": "icon.png"
     }
+  },
+  "background": {
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {

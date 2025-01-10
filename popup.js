@@ -1,42 +1,31 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  const commandForm = document.getElementById("command-form");
-  const commandsList = document.getElementById("commands-list");
+document.addEventListener("DOMContentLoaded", () => {
+  const addCommandForm = document.getElementById("addCommandForm");
+  const commandList = document.getElementById("commandList");
 
-  // Load commands
-  const loadCommands = async () => {
-    const { commands } = await chrome.storage.sync.get("commands");
-    commandsList.innerHTML = "";
-
-    for (const [key, value] of Object.entries(commands || {})) {
-      const listItem = document.createElement("li");
-      listItem.textContent = `${key}: ${value}`;
-      const deleteButton = document.createElement("button");
-      deleteButton.textContent = "Delete";
-      deleteButton.addEventListener("click", async () => {
-        delete commands[key];
-        await chrome.storage.sync.set({ commands });
-        loadCommands();
-      });
-      listItem.appendChild(deleteButton);
-      commandsList.appendChild(listItem);
-    }
+  const refreshCommands = () => {
+    chrome.storage.sync.get(null, (items) => {
+      commandList.innerHTML = "";
+      for (const [cmd, text] of Object.entries(items)) {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${cmd}: ${text}`;
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", () => {
+          chrome.storage.sync.remove(cmd, refreshCommands);
+        });
+        listItem.appendChild(deleteButton);
+        commandList.appendChild(listItem);
+      }
+    });
   };
 
-  // Save command
-  commandForm.addEventListener("submit", async (e) => {
+  addCommandForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const commandName = document.getElementById("command-name").value.trim();
-    const commandText = document.getElementById("command-text").value.trim();
-
-    if (commandName && commandText) {
-      const { commands } = await chrome.storage.sync.get("commands");
-      await chrome.storage.sync.set({
-        commands: { ...commands, [commandName]: commandText }
-      });
-      commandForm.reset();
-      loadCommands();
-    }
+    const command = document.getElementById("command").value.trim();
+    const text = document.getElementById("text").value.trim();
+    chrome.storage.sync.set({ [command]: text }, refreshCommands);
+    addCommandForm.reset();
   });
 
-  loadCommands();
+  refreshCommands();
 });
